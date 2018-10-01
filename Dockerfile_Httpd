@@ -1,0 +1,29 @@
+FROM php:7.2.15-apache
+LABEL authors=${DOCKER_AUTHOR}
+
+WORKDIR /var/www/html
+
+COPY . .
+
+COPY docker/apt/sources.list /etc/apt/sources.list
+
+RUN echo "" | tee /etc/apt/sources.list.d/buster.list
+
+RUN apt-get update -y
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install -y --allow-unauthenticated nodejs
+RUN apt-get install -y --allow-unauthenticated zip
+RUN apt-get install -y --allow-unauthenticated unzip
+RUN docker-php-ext-install pdo pdo_mysql bcmath
+
+COPY docker/php/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY docker/php/php.ini /usr/local/etc/php/php.ini
+COPY docker/php/php.ini /usr/local/etc/php/php.ini-development
+COPY docker/php/php.ini /usr/local/etc/php/php.ini-production
+COPY --from=composer:1.8.4 /usr/bin/composer /usr/bin/composer
+
+RUN chown -R www-data:www-data /var/www/html
+
+RUN a2enmod rewrite
+
+ENTRYPOINT ["docker/php/entrypoint.sh"]
