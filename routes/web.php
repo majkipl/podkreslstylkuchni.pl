@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\HomeController;
+
+/* FRONTEND */
+
+Route::get('/', [HomeController::class, 'index'])->name('front.home');
+
+/* BACKEND */
+
