@@ -15325,7 +15325,7 @@ footer h6 {
 }
 
 #form {
-  padding-top: 106px;
+  padding-top: 100px;
   background-color: #ffffff;
   color: #000000;
   background-image: url("/images/form.jpg");
@@ -15339,6 +15339,7 @@ footer h6 {
   background-image: url("/images/GRATIS.png");
   background-repeat: no-repeat;
   background-position: left center;
+  padding-left: 50%;
 }
 #form p {
   font-size: 14px;
@@ -15375,89 +15376,55 @@ footer h6 {
   box-shadow: 0px 0px 20px 7px rgba(0, 0, 0, 0.15);
   color: #ffffff;
 }
-#form .uploads {
+#form .file-uploads {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#form .file-uploads .thumbs {
+  margin-bottom: 30px;
+}
+#form .file-uploads .thumbs img {
+  max-width: 100%;
+}
+#form .file-uploads .info {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  text-align: center;
+  box-shadow: 0 0 5px #000000;
   width: 100%;
   min-height: 200px;
+  float: left;
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
   transition: all 0.5s ease;
-  background-color: transparent;
-  color: #000000;
-  border: 0;
+  border: 1px solid #000000;
+  padding: 10px 15px;
 }
-#form .uploads:hover {
-  box-shadow: none;
+#form .file-uploads .info img {
+  max-width: 48px;
+  margin-bottom: 15px;
 }
-#form .uploads .ajax-file-upload-container {
-  margin: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-#form .uploads .ajax-file-upload {
-  background: none;
-  box-shadow: none;
-  margin: 0;
-  width: 100%;
-  height: 198px;
-  line-height: 1.2;
-  display: inline-block;
-  border: none;
-  border-radius: 0px;
-  padding: 0;
-  text-align: left;
-  color: #000000;
-  font-family: museo, serif;
-  font-weight: 400;
-  font-size: 15px;
-  float: left;
-  text-align: center;
-}
-#form .ajax-file-upload-statusbar {
-  border: 0;
-  border-radius: 0px;
-  padding: 0;
-  margin: 0;
-  width: 100% !important;
+#form .file-uploads .hidden {
   display: none;
 }
-#form .ajax-file-upload-statusbar:first-of-type {
+#form .file-uploads .hidden img {
+  margin: 0 auto;
+  max-width: 300px;
   display: block;
 }
-#form .ajax-file-upload-statusbar .ajax-file-upload-progress {
-  width: 100%;
-  border: 0;
-  margin: 0;
-  height: 8px;
+#form .file-uploads .uploads-d-none {
+  overflow: hidden;
+  width: 0;
+  height: 0;
   position: absolute;
   top: 0;
   left: 0;
-}
-#form .ajax-file-upload-statusbar .ajax-file-upload-progress .ajax-file-upload-bar {
-  background-color: #15181d;
-  width: 0;
-  height: 100%;
-  border-radius: 0;
-  color: #ffffff;
-}
-#form .ajax-file-upload-statusbar .ajax-file-upload-filename {
-  display: none;
-}
-#form .ajax-file-upload-statusbar .ajax-file-upload-error {
-  display: none;
-}
-#form .uploads-receipt {
-  float: right;
-}
-#form .uploads-receipt + .error-post:not(:empty) {
-  width: 290px;
-  float: right;
-}
-#form .uploads-tip {
-  width: 100%;
 }
 #form label.css-label {
   font-weight: 300;
@@ -15576,7 +15543,7 @@ footer h6 {
 }
 
 #thx {
-  padding-top: 106px;
+  padding-top: 100px;
   background-image: url("/images/ss18_rh_retro_2_slice_toaster_black_high_res_bun_w.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -15597,7 +15564,7 @@ footer h6 {
 }
 
 #pcookie {
-  padding-top: 106px;
+  padding-top: 100px;
 }
 
 #contact {
@@ -16009,4 +15976,15 @@ section#products .owl-carousel .owl-item img {
 }
 #top .container-menu.showed {
   display: block;
+}
+
+#e404 {
+  margin-top: 100px;
+}
+#e404 .container {
+  min-height: calc(100vh - 250px);
+}
+#e404 .container h1 {
+  margin: 0;
+  font-size: 30vw;
 }
