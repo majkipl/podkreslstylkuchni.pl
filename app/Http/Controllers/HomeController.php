@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -12,7 +12,7 @@ class HomeController extends Controller
             'isEndPromotion' => false,
             'isEndContest' => false,
             'isEndResult' => false,
-//            'weeks' => []
+            'products' => Product::getAllCached()
         ]);
     }
 }

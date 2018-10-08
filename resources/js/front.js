@@ -6,8 +6,8 @@
 
 require('./bootstrap');
 
-require('bootstrap/dist/js/bootstrap');
 require('owl.carousel');
+require('malihu-custom-scrollbar-plugin');
 require('./plugins/twentytwenty/jquery.event.move');
 require('./plugins/twentytwenty/jquery.twentytwenty');
 

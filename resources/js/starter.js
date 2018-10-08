@@ -8,8 +8,7 @@ import AOS from 'aos';
         $(items).css({});
         let max = 0;
         for (let i = 0; i < items.length; i++) {
-            max = max < $(items[i]).height() ?
-                $(items[i]).height() : max;
+            max = max < $(items[i]).height() ? $(items[i]).height() : max;
 
         }
         $(items).css({'display': 'block', 'height': '' + max + 'px'});
@@ -32,10 +31,7 @@ $(window).scroll(() => {
 
 const starter = {
     _var: {
-        window_is_load: false,
-        owl_products_retro: null,
-        owl_products_modern: null,
-        error: []
+        window_is_load: false, owl_products_retro: null, owl_products_modern: null, error: []
     },
 
     main: {
@@ -116,6 +112,55 @@ const starter = {
 
             $(document).on('click', '#contact a.send', function () {
                 $(this).closest('form').submit();
+                return false;
+            });
+
+            $(document).on('click', 'a.popup-open', function () {
+                const popup = $('section#popup-' + $(this).data('popup'));
+                const popup_id = $(this).data('popup');
+                axios({
+                    method: 'get',
+                    url: '/api/products/url/' + popup_id,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                }).then(function (response) {
+                    $.each(response.data.rows, function (key, url) {
+                        const item = $('<div>').addClass('col-12 col-sm-6 col-md-4 col-lg-3 item');
+                        const shop_content = $('<div>').addClass('shop-content');
+                        const a = $('<a>').addClass('shop').attr('href', url).attr('title', 'KUP TERAZ').attr('target', '_blank');
+                        a.appendTo(shop_content);
+                        shop_content.appendTo(item);
+                        item.appendTo("#popup-" + popup_id + " .list");
+                    });
+                }).catch(function (error) {
+                    $(`.error-post`).text('');
+
+                    if (error.response) {
+                        Object.keys(error.response.data.errors).map((item) => {
+                            $(`.error-${item}`).text(error.response.data.errors[item][0]);
+                        });
+                    } else if (error.request) {
+                        console.log(error.request);
+                    } else {
+                        console.log('Error', error.message);
+                    }
+                });
+
+                popup.addClass('popup-show').fadeIn();
+                starter.effects.set_scroll_container_popup(popup.find('.popup-scroll'));
+                starter.effects.disableScrolling();
+
+                return false;
+            });
+
+            $(document).on('click', '.popup .popup-close', function () {
+                const popup = $(this).parents('section');
+
+                popup.find('.item').remove();
+                popup.removeClass('popup-show').fadeOut();
+                starter.effects.enableScrolling();
+
                 return false;
             });
         },
@@ -205,12 +250,9 @@ const starter = {
                 const url = $(this).closest('form').attr('action');
 
                 axios({
-                    method: 'post',
-                    url: url,
-                    headers: {
+                    method: 'post', url: url, headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: fields,
+                    }, data: fields,
                 }).then(function (response) {
                     $('#contact h3').html(response.data.results.message);
                     $('#contact .form').hide();
@@ -244,13 +286,10 @@ const starter = {
                     }
 
                     axios({
-                        method: 'post',
-                        url: url,
-                        headers: {
+                        method: 'post', url: url, headers: {
                             'content-type': 'multipart/form-data',
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        data: formData,
+                        }, data: formData,
                     }).then(function (response) {
                         window.location = response.data.results.url;
                     }).catch(function (error) {
@@ -294,22 +333,13 @@ const starter = {
 
             if ($owlProductsRetro.length > 0) {
                 starter._var.owl_products_retro = $owlProductsRetro.owlCarousel({
-                    loop: true,
-                    margin: 0,
-                    nav: false,
-                    dots: false,
-                    responsive: {
+                    loop: true, margin: 0, nav: false, dots: false, responsive: {
                         0: {
-                            items: 1,
-                            slideBy: 1,
-                        },
-                        992: {
-                            items: 2,
-                            slideBy: 1,
-                        },
-                        1200: {
-                            items: 2,
-                            slideBy: 1,
+                            items: 1, slideBy: 1,
+                        }, 992: {
+                            items: 2, slideBy: 1,
+                        }, 1200: {
+                            items: 2, slideBy: 1,
                         }
                     }
                 });
@@ -319,22 +349,13 @@ const starter = {
 
             if ($owlProductsModern.length > 0) {
                 starter._var.owl_products_modern = $owlProductsModern.owlCarousel({
-                    loop: true,
-                    margin: 0,
-                    nav: false,
-                    dots: false,
-                    responsive: {
+                    loop: true, margin: 0, nav: false, dots: false, responsive: {
                         0: {
-                            items: 1,
-                            slideBy: 1,
-                        },
-                        992: {
-                            items: 2,
-                            slideBy: 1,
-                        },
-                        1200: {
-                            items: 2,
-                            slideBy: 1,
+                            items: 1, slideBy: 1,
+                        }, 992: {
+                            items: 2, slideBy: 1,
+                        }, 1200: {
+                            items: 2, slideBy: 1,
                         }
                     }
                 });
@@ -425,8 +446,7 @@ const starter = {
                 } else {
                     return true;
                 }
-            },
-            isEmail: (value, name) => {
+            }, isEmail: (value, name) => {
                 if (value === "") {
                     return `Pole ${name} jest wymagane.`;
                 } else if (value.length > 255) {
@@ -436,8 +456,7 @@ const starter = {
                 } else {
                     return true;
                 }
-            },
-            isPhone: (value, name) => {
+            }, isPhone: (value, name) => {
                 if (value === "") {
                     return `Pole ${name} jest wymagane.`;
                 } else if (!/^\+48(\s)?([1-9]\d{8}|[1-9]\d{2}\s\d{3}\s\d{3}|[1-9]\d{1}\s\d{3}\s\d{2}\s\d{2}|[1-9]\d{1}\s\d{2}\s\d{3}\s\d{2}|[1-9]\d{1}\s\d{2}\s\d{2}\s\d{3}|[1-9]\d{1}\s\d{4}\s\d{2}|[1-9]\d{2}\s\d{2}\s\d{2}\s\d{2}|[1-9]\d{2}\s\d{3}\s\d{2}|[1-9]\d{2}\s\d{4})$/.test(value)) {
@@ -445,8 +464,7 @@ const starter = {
                 } else {
                     return true;
                 }
-            },
-            isAddress: (value, name) => {
+            }, isAddress: (value, name) => {
                 if (value === "") {
                     return `Pole ${name} jest wymagane.`;
                 } else if (value.length > 255) {
@@ -454,8 +472,7 @@ const starter = {
                 } else {
                     return true;
                 }
-            },
-            isAddressNb: (value, name) => {
+            }, isAddressNb: (value, name) => {
                 if (value === "") {
                     return `Pole ${name} jest wymagane.`;
                 } else if (value.length > 16) {
@@ -463,8 +480,7 @@ const starter = {
                 } else {
                     return true;
                 }
-            },
-            isCity: (value, name) => {
+            }, isCity: (value, name) => {
                 if (value === "") {
                     return `Pole ${name} jest wymagane.`;
                 } else if (value.length < 2 || value.length > 64) {
@@ -472,8 +488,7 @@ const starter = {
                 } else {
                     return true;
                 }
-            },
-            isZip: (value, name) => {
+            }, isZip: (value, name) => {
                 if (value === "") {
                     return `Pole ${name} jest wymagane.`;
                 } else if (!/^[0-9]{2}-[0-9]{3}$/.test(value)) {
@@ -481,8 +496,7 @@ const starter = {
                 } else {
                     return true;
                 }
-            },
-            isLegal: (item) => {
+            }, isLegal: (item) => {
                 if (item.val() === "") {
                     return `Pole jest wymagane.`;
                 } else if (!item.prop('checked')) {
@@ -490,8 +504,7 @@ const starter = {
                 } else {
                     return true;
                 }
-            },
-            isMessage: (value, name) => {
+            }, isMessage: (value, name) => {
                 if (value === "") {
                     return `Pole ${name} jest wymagane.`;
                 } else if (value.length < 3 || value.length > 4096) {
@@ -499,8 +512,7 @@ const starter = {
                 } else {
                     return true;
                 }
-            },
-            isFile: (file, name) => {
+            }, isFile: (file, name) => {
                 const extension = file[0]?.files[0]?.name.split('.').pop().toLowerCase();
                 if (file[0].files.length === 0) {
                     return `Pole ${name} jest wymagane.`;
@@ -557,5 +569,41 @@ const starter = {
 
     datepicker: {},
 
-    effects: {}
+    effects: {
+        // popupContainerRow: function () {
+        //     $('.popup-container-row').css({
+        //         'height': $(window).height() - 40 + 'px'
+        //     });
+        // },
+        //
+        // popupContainerRowCol: function () {
+        //     $('.popup-container-row-col').matchMaxHeight();
+        // },
+
+        set_scroll_container_popup: function (obj) {
+            obj.mCustomScrollbar({
+                callbacks: {
+                    onCreate: function () {
+                        console.log("onCreate");
+                    }, onInit: function () {
+                        console.log("onInit");
+                    }
+                },
+            });
+        },
+
+        disableScrolling: function () {
+            var x = window.scrollX;
+            var y = window.scrollY;
+            window.onscroll = function () {
+                window.scrollTo(x, y);
+            };
+        },
+
+        enableScrolling: function () {
+            window.onscroll = function () {
+
+            };
+        }
+    }
 }

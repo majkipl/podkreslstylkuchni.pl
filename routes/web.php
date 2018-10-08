@@ -20,6 +20,9 @@ use App\Http\Controllers\ThxController;
 /* FRONTEND */
 
 Route::get('/', [HomeController::class, 'index'])->name('front.home');
+Route::get('/zasady', [HomeController::class, 'index'])->name('front.home.rules');
+Route::get('/produkty', [HomeController::class, 'index'])->name('front.home.products');
+Route::get('/kontakt', [HomeController::class, 'index'])->name('front.home.contact');
 Route::get('/formularz', [ApplicationController::class, 'form'])->name('front.application.form');
 Route::post('/formularz/zapisz', [ApplicationController::class, 'store'])->name('front.application.save');
 Route::get('/podziekowania/rejestracja', [ThxController::class, 'form'])->name('front.thx.form');
