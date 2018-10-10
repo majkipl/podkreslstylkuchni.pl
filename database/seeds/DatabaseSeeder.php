@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProductType;
 use App\Models\Product;
 use App\Models\Url;
 use Illuminate\Database\Seeder;
@@ -174,7 +175,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             ApplicationSeeder::class,
-//            UserSeeder::class
+            UserSeeder::class
         ]);
     }
 }
