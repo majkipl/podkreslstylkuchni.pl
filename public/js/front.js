@@ -915,7 +915,7 @@ var starter = {
         var popup_id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('popup');
         axios({
           method: 'get',
-          url: '/api/products/url/' + popup_id,
+          url: '/api/urls/' + popup_id,
           headers: {
             'X-CSRF-TOKEN': jquery__WEBPACK_IMPORTED_MODULE_0___default()('meta[name="csrf-token"]').attr('content')
           }
@@ -38774,6 +38774,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/sass/backend.scss":
+/*!*************************************!*\
+  !*** ./resources/sass/backend.scss ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./node_modules/owl.carousel/dist/owl.carousel.js":
 /*!********************************************************!*\
   !*** ./node_modules/owl.carousel/dist/owl.carousel.js ***!
@@ -48252,7 +48265,8 @@ module.exports = axios;
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/front": 0,
-/******/ 			"css/front": 0
+/******/ 			"css/front": 0,
+/******/ 			"css/backend": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -48302,8 +48316,9 @@ module.exports = axios;
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/front"], () => (__webpack_require__("./resources/js/front.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/front"], () => (__webpack_require__("./resources/sass/front.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/front","css/backend"], () => (__webpack_require__("./resources/js/front.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/front","css/backend"], () => (__webpack_require__("./resources/sass/front.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/front","css/backend"], () => (__webpack_require__("./resources/sass/backend.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

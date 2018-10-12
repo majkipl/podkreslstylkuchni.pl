@@ -15,7 +15,11 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ConfirmController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Panel\ProductController;
+use App\Http\Controllers\Panel\UrlController;
 use App\Http\Controllers\ThxController;
+
+Auth::routes();
 
 /* FRONTEND */
 
@@ -32,3 +36,21 @@ Route::post('/kontakt/wyslij', [ContactController::class, 'send'])->name('front.
 
 /* BACKEND */
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/panel', [\App\Http\Controllers\Panel\HomeController::class, 'index'])->name('back.home');
+
+    Route::middleware(['can:isAdmin'])->group(function () {
+        Route::get('/panel/zgloszenie', [\App\Http\Controllers\Panel\ApplicationController::class, 'index'])->name('back.application');
+        Route::get('/panel/zgloszenie/{promotion}', [\App\Http\Controllers\Panel\ApplicationController::class, 'show'])->name('back.application.show');
+
+        Route::get('/panel/produkt', [ProductController::class, 'index'])->name('back.product');
+        Route::get('/panel/produkt/dodaj', [ProductController::class, 'create'])->name('back.product.create');
+        Route::get('/panel/produkt/zmien/{product}', [ProductController::class, 'edit'])->name('back.product.edit');
+        Route::get('/panel/produkt/{product}', [ProductController::class, 'show'])->name('back.product.show');
+
+        Route::get('/panel/linki', [UrlController::class, 'index'])->name('back.url');
+        Route::get('/panel/linki/dodaj', [UrlController::class, 'create'])->name('back.url.create');
+        Route::get('/panel/linki/zmien/{url}', [UrlController::class, 'edit'])->name('back.url.edit');
+        Route::get('/panel/linki/{url}', [UrlController::class, 'show'])->name('back.url.show');
+    });
+});

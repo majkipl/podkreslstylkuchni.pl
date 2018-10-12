@@ -120,7 +120,7 @@ const starter = {
                 const popup_id = $(this).data('popup');
                 axios({
                     method: 'get',
-                    url: '/api/products/url/' + popup_id,
+                    url: '/api/urls/' + popup_id,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
