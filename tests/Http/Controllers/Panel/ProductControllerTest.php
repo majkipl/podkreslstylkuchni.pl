@@ -14,24 +14,4 @@ class ProductControllerTest extends PanelBaseTestCase
     public $route = 'back.product';
 
     public $model = Product::class;
-
-    public function user_has_not_access_to_create()
-    {
-    }
-
-    public function user_has_access_to_create()
-    {
-    }
-
-    public function user_has_not_access_to_edit()
-    {
-    }
-
-    public function user_has_access_to_edit()
-    {
-    }
-
-    public function user_has_access_to_edit_and_not_exist_id()
-    {
-    }
 }

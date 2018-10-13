@@ -19,6 +19,10 @@ class UrlController extends Controller
 {
     use ApiRequestParametersTrait;
 
+    /**
+     * @param IndexUrlRequest $request
+     * @return JsonResponse
+     */
     public function index(IndexUrlRequest $request): JsonResponse
     {
         $params = $this->getRequestParameters($request);
@@ -35,13 +39,16 @@ class UrlController extends Controller
         ], Response::HTTP_OK);
     }
 
+    /**
+     * @param AddUrlRequest $request
+     * @return JsonResponse
+     */
     public function add(AddUrlRequest $request): JsonResponse
     {
         DB::beginTransaction();
 
         try {
             $url = new Url($request->validated());
-            $params = $request->all();
 
             $url->save();
 
@@ -76,15 +83,19 @@ class UrlController extends Controller
         }
     }
 
-    public function update(UpdateUrlRequest $request)
+    /**
+     * @param UpdateUrlRequest $request
+     * @return JsonResponse
+     */
+    public function update(UpdateUrlRequest $request): JsonResponse
     {
         DB::beginTransaction();
 
         try {
             $url = Url::findOrFail($request->input('id'));
 
-            $oldProductId = Product::findOrFail($url->product_id);;
-            $newProductId = Product::findOrFail($request->input('product_id'));;
+            $oldProductId = Product::findOrFail($url->product_id);
+            $newProductId = Product::findOrFail($request->input('product_id'));
 
             $url->fill($request->validated());
 
@@ -123,8 +134,9 @@ class UrlController extends Controller
         }
     }
 
+
     /**
-     * @param Shop $url
+     * @param Url $url
      * @return JsonResponse
      */
     public function delete(Url $url): JsonResponse
@@ -163,7 +175,11 @@ class UrlController extends Controller
         }
     }
 
-    public function product(string $productCode)
+    /**
+     * @param string $productCode
+     * @return JsonResponse
+     */
+    public function product(string $productCode): JsonResponse
     {
         $urls = Url::getByProductCode($productCode);
 

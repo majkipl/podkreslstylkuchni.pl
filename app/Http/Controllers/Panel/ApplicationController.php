@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Models\Application;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ApplicationController extends Controller

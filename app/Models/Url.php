@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * @method static search($search, $searchable)
+ * @method static findOrFail(array|string|null $input)
+ * @method static where(string $string, string $string1, int $id)
+ * @method static insert(array $dataURL)
+ */
 class Url extends Model
 {
     protected $fillable = ['id', 'url', 'product_id'];

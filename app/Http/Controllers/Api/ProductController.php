@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\AddProductRequest;
 use App\Http\Requests\Api\IndexProductRequest;
 use App\Http\Requests\Api\UpdateProductRequest;
-use App\Http\Requests\Api\UpdateUrlRequest;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Traits\ApiRequestParametersTrait;
@@ -19,6 +18,10 @@ class ProductController extends Controller
 {
     use ApiRequestParametersTrait;
 
+    /**
+     * @param IndexProductRequest $request
+     * @return JsonResponse
+     */
     public function index(IndexProductRequest $request): JsonResponse
     {
         $params = $this->getRequestParameters($request);
@@ -35,13 +38,16 @@ class ProductController extends Controller
         ], Response::HTTP_OK);
     }
 
+    /**
+     * @param AddProductRequest $request
+     * @return JsonResponse
+     */
     public function add(AddProductRequest $request): JsonResponse
     {
         DB::beginTransaction();
 
         try {
             $product = new Product($request->validated());
-            $params = $request->all();
 
             $product->save();
 
@@ -75,7 +81,11 @@ class ProductController extends Controller
         }
     }
 
-    public function update(UpdateProductRequest $request)
+    /**
+     * @param UpdateProductRequest $request
+     * @return JsonResponse
+     */
+    public function update(UpdateProductRequest $request): JsonResponse
     {
         DB::beginTransaction();
 
@@ -89,8 +99,6 @@ class ProductController extends Controller
             DB::commit();
 
             Cache::forget('products');
-//            Cache::forget('products_by_' . $oldProductId);
-//            Cache::forget('products_by_' . $newProductId);
 
             return response()->json(
                 [
@@ -118,6 +126,10 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * @param Product $product
+     * @return JsonResponse
+     */
     public function delete(Product $product): JsonResponse
     {
         DB::beginTransaction();

@@ -6,7 +6,6 @@ use App\Http\Requests\ContactRequest;
 use App\Services\ContactService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ContactController extends Controller
