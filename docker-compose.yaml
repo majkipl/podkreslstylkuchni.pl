@@ -25,7 +25,6 @@ services:
       - dev
     depends_on:
       - db_mysql
-      - mailcatcher
 
   db_mysql:
     container_name: ${DOCKER_DOMAIN}-mysql

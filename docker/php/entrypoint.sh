@@ -9,7 +9,7 @@ chmod -R 777 /var/www/html/storage
 composer install --no-interaction --no-progress
 
 npm install -g n
-n 10
+n 12
 npm install
 npm run build
 
