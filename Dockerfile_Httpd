@@ -10,8 +10,6 @@ COPY docker/apt/sources.list /etc/apt/sources.list
 RUN echo "" | tee /etc/apt/sources.list.d/buster.list
 
 RUN apt-get update -y
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get install -y --allow-unauthenticated nodejs
 RUN apt-get install -y --allow-unauthenticated zip
 RUN apt-get install -y --allow-unauthenticated unzip
 RUN docker-php-ext-install pdo pdo_mysql bcmath
@@ -21,6 +19,8 @@ COPY docker/php/php.ini /usr/local/etc/php/php.ini
 COPY docker/php/php.ini /usr/local/etc/php/php.ini-development
 COPY docker/php/php.ini /usr/local/etc/php/php.ini-production
 COPY --from=composer:1.8.4 /usr/bin/composer /usr/bin/composer
+COPY --from=node:12-stretch /usr/local/bin /usr/local/bin
+COPY --from=node:12-stretch /usr/local/lib/node_modules /usr/local/lib/node_modules
 
 RUN chown -R www-data:www-data /var/www/html
 
